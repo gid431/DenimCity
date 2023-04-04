@@ -5,7 +5,7 @@
 namespace dc_repository.Entities
 {
 
-    public class CommonEntities //non è tabella dati
+    public class CommonEntities : LoggerInfo //non è tabella dati
     {
         [MaxLength(50, ErrorMessage = "Il campo categoria ammette massimo 500 caratteri")]
         [MinLength(3, ErrorMessage = "Il campo categoria ammette minimo 3 caratteri")]

@@ -3,7 +3,6 @@
 namespace dc_repository.Entities
 {
     public class Categoria : CommonEntities
-
     {
         public Categoria()
         {

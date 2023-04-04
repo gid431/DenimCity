@@ -11,8 +11,8 @@ using dc_repository.Context;
 namespace dc_repository.Migrations
 {
     [DbContext(typeof(DcContext))]
-    [Migration("20230404094059_first migration")]
-    partial class firstmigration
+    [Migration("20230404152026_Update context")]
+    partial class Updatecontext
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -86,9 +86,18 @@ namespace dc_repository.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("INTEGER");
 
+                    b.Property<DateTime>("DataAggiornamento")
+                        .HasColumnType("TEXT");
+
+                    b.Property<DateTime>("DataDiCreazione")
+                        .HasColumnType("TEXT");
+
                     b.Property<string>("Descrizione")
                         .IsRequired()
                         .HasMaxLength(50)
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("Operatore")
                         .HasColumnType("TEXT");
 
                     b.HasKey("IdCategoria");
@@ -102,9 +111,18 @@ namespace dc_repository.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("INTEGER");
 
+                    b.Property<DateTime>("DataAggiornamento")
+                        .HasColumnType("TEXT");
+
+                    b.Property<DateTime>("DataDiCreazione")
+                        .HasColumnType("TEXT");
+
                     b.Property<string>("Descrizione")
                         .IsRequired()
                         .HasMaxLength(50)
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("Operatore")
                         .HasColumnType("TEXT");
 
                     b.HasKey("IdMarchi");
@@ -118,12 +136,21 @@ namespace dc_repository.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("INTEGER");
 
+                    b.Property<DateTime>("DataAggiornamento")
+                        .HasColumnType("TEXT");
+
+                    b.Property<DateTime>("DataDiCreazione")
+                        .HasColumnType("TEXT");
+
                     b.Property<DateTime>("DataMovimento")
                         .HasColumnType("TEXT");
 
                     b.Property<string>("Descrizione")
                         .IsRequired()
                         .HasMaxLength(50)
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("Operatore")
                         .HasColumnType("TEXT");
 
                     b.Property<int>("SoggettoId")
@@ -159,8 +186,22 @@ namespace dc_repository.Migrations
                     b.Property<int>("ArticoloId")
                         .HasColumnType("INTEGER");
 
+                    b.Property<DateTime>("DataAggiornamento")
+                        .HasColumnType("TEXT");
+
+                    b.Property<DateTime>("DataDiCreazione")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("Descrizione")
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .HasColumnType("TEXT");
+
                     b.Property<int>("MovimentoId")
                         .HasColumnType("INTEGER");
+
+                    b.Property<string>("Operatore")
+                        .HasColumnType("TEXT");
 
                     b.Property<decimal>("Prezzo")
                         .HasColumnType("TEXT");
@@ -234,9 +275,18 @@ namespace dc_repository.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("INTEGER");
 
+                    b.Property<DateTime>("DataAggiornamento")
+                        .HasColumnType("TEXT");
+
+                    b.Property<DateTime>("DataDiCreazione")
+                        .HasColumnType("TEXT");
+
                     b.Property<string>("Descrizione")
                         .IsRequired()
                         .HasMaxLength(50)
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("Operatore")
                         .HasColumnType("TEXT");
 
                     b.HasKey("IdTipologia");
@@ -250,9 +300,18 @@ namespace dc_repository.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("INTEGER");
 
+                    b.Property<DateTime>("DataAggiornamento")
+                        .HasColumnType("TEXT");
+
+                    b.Property<DateTime>("DataDiCreazione")
+                        .HasColumnType("TEXT");
+
                     b.Property<string>("Descrizione")
                         .IsRequired()
                         .HasMaxLength(50)
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("Operatore")
                         .HasColumnType("TEXT");
 
                     b.Property<int>("Segno")

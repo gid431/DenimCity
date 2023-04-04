@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace dc_repository.Migrations
 {
-    public partial class firstmigration : Migration
+    public partial class Updatecontext : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -15,6 +15,9 @@ namespace dc_repository.Migrations
                 {
                     IdCategoria = table.Column<int>(type: "INTEGER", nullable: false)
                         .Annotation("Sqlite:Autoincrement", true),
+                    DataDiCreazione = table.Column<DateTime>(type: "TEXT", nullable: false),
+                    DataAggiornamento = table.Column<DateTime>(type: "TEXT", nullable: false),
+                    Operatore = table.Column<string>(type: "TEXT", nullable: true),
                     Descrizione = table.Column<string>(type: "TEXT", maxLength: 50, nullable: false)
                 },
                 constraints: table =>
@@ -28,6 +31,9 @@ namespace dc_repository.Migrations
                 {
                     IdMarchi = table.Column<int>(type: "INTEGER", nullable: false)
                         .Annotation("Sqlite:Autoincrement", true),
+                    DataDiCreazione = table.Column<DateTime>(type: "TEXT", nullable: false),
+                    DataAggiornamento = table.Column<DateTime>(type: "TEXT", nullable: false),
+                    Operatore = table.Column<string>(type: "TEXT", nullable: true),
                     Descrizione = table.Column<string>(type: "TEXT", maxLength: 50, nullable: false)
                 },
                 constraints: table =>
@@ -65,6 +71,9 @@ namespace dc_repository.Migrations
                 {
                     IdTipologia = table.Column<int>(type: "INTEGER", nullable: false)
                         .Annotation("Sqlite:Autoincrement", true),
+                    DataDiCreazione = table.Column<DateTime>(type: "TEXT", nullable: false),
+                    DataAggiornamento = table.Column<DateTime>(type: "TEXT", nullable: false),
+                    Operatore = table.Column<string>(type: "TEXT", nullable: true),
                     Descrizione = table.Column<string>(type: "TEXT", maxLength: 50, nullable: false)
                 },
                 constraints: table =>
@@ -79,6 +88,9 @@ namespace dc_repository.Migrations
                     IdMovimento = table.Column<int>(type: "INTEGER", nullable: false)
                         .Annotation("Sqlite:Autoincrement", true),
                     Segno = table.Column<int>(type: "INTEGER", nullable: false),
+                    DataDiCreazione = table.Column<DateTime>(type: "TEXT", nullable: false),
+                    DataAggiornamento = table.Column<DateTime>(type: "TEXT", nullable: false),
+                    Operatore = table.Column<string>(type: "TEXT", nullable: true),
                     Descrizione = table.Column<string>(type: "TEXT", maxLength: 50, nullable: false)
                 },
                 constraints: table =>
@@ -141,6 +153,9 @@ namespace dc_repository.Migrations
                     TotaleIva = table.Column<decimal>(type: "TEXT", nullable: false),
                     Totale = table.Column<decimal>(type: "TEXT", nullable: false),
                     TipoPagamento = table.Column<int>(type: "INTEGER", nullable: false),
+                    DataDiCreazione = table.Column<DateTime>(type: "TEXT", nullable: false),
+                    DataAggiornamento = table.Column<DateTime>(type: "TEXT", nullable: false),
+                    Operatore = table.Column<string>(type: "TEXT", nullable: true),
                     Descrizione = table.Column<string>(type: "TEXT", maxLength: 50, nullable: false)
                 },
                 constraints: table =>
@@ -168,7 +183,11 @@ namespace dc_repository.Migrations
                         .Annotation("Sqlite:Autoincrement", true),
                     MovimentoId = table.Column<int>(type: "INTEGER", nullable: false),
                     ArticoloId = table.Column<int>(type: "INTEGER", nullable: false),
-                    Prezzo = table.Column<decimal>(type: "TEXT", nullable: false)
+                    Prezzo = table.Column<decimal>(type: "TEXT", nullable: false),
+                    DataDiCreazione = table.Column<DateTime>(type: "TEXT", nullable: false),
+                    DataAggiornamento = table.Column<DateTime>(type: "TEXT", nullable: false),
+                    Operatore = table.Column<string>(type: "TEXT", nullable: true),
+                    Descrizione = table.Column<string>(type: "TEXT", maxLength: 50, nullable: false)
                 },
                 constraints: table =>
                 {

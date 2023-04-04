@@ -3,14 +3,30 @@ using System.ComponentModel.DataAnnotations.Schema;
 #nullable disable
 namespace dc_repository.Entities
 {
+    /// <summary>
+    /// Entità articolo
+    /// </summary>
     public class Articolo : LoggerInfo
     {
+        /// <summary>
+        /// chiave primaria di tipo intero 
+        /// </summary>
         [Key]
         public int IdArticolo { get; set; }
+
+        /// <summary>
+        /// proprietà stringa codice prodotto
+        /// </summary>
+        
         [MaxLength(20, ErrorMessage = "Il campo codice prodotto ammette massimo 20 caratteri")]
         [MinLength(3, ErrorMessage = "Il campo codice prodotto ammette minimo 3 caratteri")]
         [Required(ErrorMessage = "Il campo codice prodotto è obbligatorio")]
         public string CodiceProdotto { get; set; }
+
+        /// <summary>
+        /// proprietà stinga descrizione prodotto
+        /// </summary>
+        
         [MaxLength(500)]
         public string Descrizione { get; set; }
 

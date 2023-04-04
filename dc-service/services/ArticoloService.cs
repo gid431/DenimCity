@@ -32,7 +32,7 @@ namespace dc_service.services
         public async Task CreateRangeAsync(List<Articolo> entities)
         {
             //accertarci che ogni elemento della lista entità che mi stanno arrivando, siano popolate
-            if (!entities.Any()) throw new ArgumentNullException("La lista non puo essere vuota");
+            if (!entities.Any()) throw new ArgumentNullException("L'articolo non puo essere vuoto");
             var listaArticoli = new List<Articolo>();
             foreach(var entity in entities)
             {
@@ -57,15 +57,26 @@ namespace dc_service.services
             await repository.DeleteRangeAsync(listaArticoliEliminare);
         }
 
+        public async Task<List<Articolo>> GetAll()
+        {
+            return await repository.Query().ToListAsync();
+        }
+
         public async Task<Articolo> GetById(int id)
         {
             var articolo = await repository.Query().FirstOrDefaultAsync(articolo => articolo.IdArticolo == id);
-            return articolo;
+            return articolo ?? null;
         }
 
-        public List<Articolo> Pagination(int numeroPagine, int recordPagine)
+        public async Task <List<Articolo>> Pagination(int numeroPagine, string filtro, int recordPagine = 10)
         {
-            throw new NotImplementedException();
+            numeroPagine = numeroPagine < 0 ? 0 : numeroPagine; //condizione ternaria
+            var articoli = await repository.Query().Where
+                (articolo => articolo.CodiceProdotto.Contains(filtro) || articolo.CodiceABarre.Contains(filtro))
+                .OrderBy(articolo => articolo.CodiceProdotto)
+                .Skip(numeroPagine * recordPagine)
+                .Take(recordPagine).ToListAsync();
+            return articoli;
         }
 
         public async Task<Articolo> UpdateAsync(Articolo entity)

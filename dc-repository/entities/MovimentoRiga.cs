@@ -3,7 +3,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 #nullable disable
 namespace dc_repository.Entities
 {
-    public class MovimentoRiga
+    public class MovimentoRiga : CommonEntities
     {
         [Key]
         public int IdMovimentoRiga { get; set; }
