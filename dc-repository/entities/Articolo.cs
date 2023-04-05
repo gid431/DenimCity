@@ -32,6 +32,8 @@ namespace dc_repository.Entities
 
         public decimal PrezzoAcquisto { get; set; }
 
+        public decimal Giancenza { get; set; }
+
         public decimal PrezzoVendita { get; set; }
         [MaxLength(200)]
         public string UrlImmagine { get; set; }

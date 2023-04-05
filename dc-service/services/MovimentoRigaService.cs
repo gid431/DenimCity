@@ -1,6 +1,7 @@
 ﻿using dc_repository.Entities;
 using dc_repository.interfaces;
 using dc_service.interfaces;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -28,44 +29,63 @@ namespace dc_service.services
             return movimentoRiga;
         }
 
-        public Task CreateRangeAsync(List<MovimentoRiga> entities)
+        public async Task CreateRangeAsync(List<MovimentoRiga> entities)
         {
-            throw new NotImplementedException();
+            if (!entities.Any()) throw new ArgumentNullException("La riga non puo essere vuota");
+            await repository.CreateRangeAsync(entities);
         }
 
-        public Task DeleteAsync(int id)
+        public async Task DeleteAsync(int id)
         {
-            throw new NotImplementedException();
+            var movimentoRiga = await repository.Query().FirstOrDefaultAsync(movimentoRiga => movimentoRiga.IdMovimentoRiga == id);
+            if (movimentoRiga != null)
+            {
+                await repository.DeleteAsync(movimentoRiga);
+            }
         }
 
-        public Task DeleteRangeAsync(List<MovimentoRiga> entities)
+        public async Task DeleteRangeAsync(List<MovimentoRiga> entities)
         {
-            throw new NotImplementedException();
+            var listaMovimentiRigaEliminare = entities.Where(movimentoRiga => movimentoRiga.IdMovimentoRiga > 0);
+            await repository.DeleteRangeAsync(listaMovimentiRigaEliminare);
         }
 
-        public Task<List<MovimentoRiga>> GetAll()
+        public async Task<List<MovimentoRiga>> GetAll()
         {
-            throw new NotImplementedException();
+            return await repository.Query().ToListAsync();
         }
 
-        public Task<MovimentoRiga> GetById(int id)
+        public async Task<MovimentoRiga> GetById(int id)
         {
-            throw new NotImplementedException();
+            var movimentoRiga = await repository.Query().FirstOrDefaultAsync(movimentoRiga => movimentoRiga.IdMovimentoRiga == id);
+            return movimentoRiga ?? null;
         }
 
-        public Task<List<MovimentoRiga>> Pagination(int numeroPagine, string filtro, int recordPagine = 10)
+        public async Task<List<MovimentoRiga>> Pagination(int numeroPagine, string filtro, int recordPagine = 10)
         {
-            throw new NotImplementedException();
+            numeroPagine = numeroPagine < 0 ? 0 : numeroPagine; //condizione ternaria
+            var movimentiRiga = await repository.Query().Where
+                (movimentoRiga => movimentoRiga.Descrizione.Contains(filtro))
+                .OrderBy(movimentoRiga => movimentoRiga.Descrizione)
+                .Skip(numeroPagine * recordPagine)
+                .Take(recordPagine).ToListAsync();
+            return movimentiRiga;
         }
 
-        public Task<MovimentoRiga> UpdateAsync(MovimentoRiga entity)
+        public async Task<MovimentoRiga> UpdateAsync(MovimentoRiga entity)
         {
-            throw new NotImplementedException();
+            if (entity == null) throw new ArgumentNullException("Movimento riga non presente");
+            if (string.IsNullOrEmpty(entity.Descrizione)) throw new ArgumentNullException("La descrizione deve essere valorizzata");
+            entity.DataAggiornamento = DateTime.Now;
+            entity.Operatore = "Paperino";
+            var movimentoRiga = await repository.UpdateAsync(entity);
+            return movimentoRiga;
         }
 
-        public Task UpdateRangeAsync(List<MovimentoRiga> entities)
+        public async Task UpdateRangeAsync(List<MovimentoRiga> entities)
         {
-            throw new NotImplementedException();
+            if (!entities.Any()) throw new ArgumentNullException("La lista non puo essere vuota");
+            await repository.UpdateRangeAsync(entities);
         }
     }
 }

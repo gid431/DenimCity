@@ -5,6 +5,9 @@ namespace dc_repository.Entities
 {
     public class Movimento : CommonEntities
     {
+        /// <summary>
+        /// movimento calcolato sulla base dei movimenti righe e specifica il tipo movimento, l'iva e il pagamento
+        /// </summary>
         [Key]
         public int IdMovimento { get; set; }
 
@@ -22,6 +25,8 @@ namespace dc_repository.Entities
         public decimal TotaleIva { get; set; }
 
         public decimal Totale { get; set; }
+
+        public decimal TotaleMovimento { get; set; }
 
         public TipoPagamento TipoPagamento { get; set; }
 

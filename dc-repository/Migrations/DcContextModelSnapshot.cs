@@ -45,6 +45,9 @@ namespace dc_repository.Migrations
                         .HasMaxLength(500)
                         .HasColumnType("TEXT");
 
+                    b.Property<decimal>("Giancenza")
+                        .HasColumnType("TEXT");
+
                     b.Property<int>("MarchioId")
                         .HasColumnType("INTEGER");
 
@@ -166,6 +169,9 @@ namespace dc_repository.Migrations
                     b.Property<decimal>("TotaleIva")
                         .HasColumnType("TEXT");
 
+                    b.Property<decimal>("TotaleMovimento")
+                        .HasColumnType("TEXT");
+
                     b.HasKey("IdMovimento");
 
                     b.HasIndex("SoggettoId");
@@ -195,6 +201,9 @@ namespace dc_repository.Migrations
                         .HasMaxLength(50)
                         .HasColumnType("TEXT");
 
+                    b.Property<decimal>("Iva")
+                        .HasColumnType("TEXT");
+
                     b.Property<int>("MovimentoId")
                         .HasColumnType("INTEGER");
 
@@ -202,6 +211,15 @@ namespace dc_repository.Migrations
                         .HasColumnType("TEXT");
 
                     b.Property<decimal>("Prezzo")
+                        .HasColumnType("TEXT");
+
+                    b.Property<decimal>("Quantita")
+                        .HasColumnType("TEXT");
+
+                    b.Property<decimal>("Sconto")
+                        .HasColumnType("TEXT");
+
+                    b.Property<decimal>("TotaleRiga")
                         .HasColumnType("TEXT");
 
                     b.HasKey("IdMovimentoRiga");
@@ -294,7 +312,7 @@ namespace dc_repository.Migrations
 
             modelBuilder.Entity("dc_repository.Entities.TipoMovimento", b =>
                 {
-                    b.Property<int>("IdMovimento")
+                    b.Property<int>("IdTipoMovimento")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("INTEGER");
 
@@ -315,7 +333,7 @@ namespace dc_repository.Migrations
                     b.Property<int>("Segno")
                         .HasColumnType("INTEGER");
 
-                    b.HasKey("IdMovimento");
+                    b.HasKey("IdTipoMovimento");
 
                     b.ToTable("TipoMovimenti");
                 });

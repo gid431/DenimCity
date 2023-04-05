@@ -1,5 +1,6 @@
 ﻿using dc_repository.Entities;
 using dc_repository.interfaces;
+using dc_repository.repositories;
 using dc_service.interfaces;
 using Microsoft.EntityFrameworkCore;
 using System;
@@ -13,9 +14,41 @@ namespace dc_service.services
 #nullable disable
     public class MovimentoService : ServiceBase<Movimento>, IMovimentoService
     {
-        public MovimentoService(IRepository<Movimento> repository) : base(repository)
+        private readonly IRepository<Articolo> articoloRepository;
+        private readonly IRepository<TipoMovimento> tipoMovimentoRepository;
+        public MovimentoService(IRepository<Movimento> repository, IRepository<Articolo> articolo, IRepository<TipoMovimento> tipoMovimento) : base(repository)
         {
+            this.articoloRepository = articolo;
+            this.tipoMovimentoRepository = tipoMovimento;
+        }
 
+        //modifica update, delete
+
+        private void UpdateGiacenza(Movimento entity)
+        {
+            var segno = 1;
+            var tipoMovimento = tipoMovimentoRepository.Query().FirstOrDefault(x => x.IdTipoMovimento == entity.TipoMovimentoId);
+            if(tipoMovimento != null) segno = (int)tipoMovimento.Segno;
+
+            var listaArticoloId = entity.Righe.Select(x => x.ArticoloId).Distinct();
+            var listArticoli = new List<Articolo>();
+            foreach (var id in listaArticoloId)
+            {
+                var articolo = articoloRepository.Query().FirstOrDefault(x => x.IdArticolo == id);
+                if(articolo != null)
+                {
+                    articolo.Giancenza = (segno * entity.Righe.Where(x => x.ArticoloId == articolo.IdArticolo).Sum(s => s.Quantita));
+                    listArticoli.Add(articolo);
+                }
+            }
+            articoloRepository.UpdateRangeAsync(listArticoli);
+        }
+
+        private void UpdateTotali(Movimento entity)
+        {
+            entity.Totale = entity.Righe.Sum(s => s.Quantita * s.Prezzo);
+            entity.TotaleIva = entity.Righe.Sum(s => s.Quantita * s.Iva);
+            entity.TotaleMovimento = entity.Righe.Sum(s => s.TotaleRiga);
         }
 
         public async Task<Movimento> CreateAsync(Movimento entity)
@@ -25,29 +58,40 @@ namespace dc_service.services
             entity.DataDiCreazione = DateTime.Now;
             entity.DataAggiornamento = DateTime.Now;
             entity.Operatore = "Pippo";
+
+            if (entity.Righe.Any())
+            {
+                UpdateTotali(entity);
+                UpdateGiacenza(entity);
+            }
+
             var movimento = await repository.CreateAsync(entity);
             return movimento;
         }
 
         public async Task CreateRangeAsync(List<Movimento> entities)
         {
-            if (!entities.Any()) throw new ArgumentNullException("Il marchio non puo essere vuoto");
+            if (!entities.Any()) throw new ArgumentNullException("Il movimento non puo essere vuoto");
             await repository.CreateRangeAsync(entities);
         }
 
         public async Task DeleteAsync(int id)
         {
             var movimento = await repository.Query().FirstOrDefaultAsync(movimento => movimento.IdMovimento == id);
+
             if (movimento != null)
             {
+                /*UpdateTotali(movimento);
+                UpdateGiacenza(movimento);*/
                 await repository.DeleteAsync(movimento);
             }
+
         }
 
         public async Task DeleteRangeAsync(List<Movimento> entities)
         {
-            var listaMarchiEliminare = entities.Where(movimento => movimento.IdMovimento > 0);
-            await repository.DeleteRangeAsync(listaMarchiEliminare);
+            var listaMovimentiEliminare = entities.Where(movimento => movimento.IdMovimento > 0);
+            await repository.DeleteRangeAsync(listaMovimentiEliminare);
         }
 
         public async Task<List<Movimento>> GetAll()

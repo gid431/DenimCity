@@ -85,7 +85,7 @@ namespace dc_repository.Migrations
                 name: "TipoMovimenti",
                 columns: table => new
                 {
-                    IdMovimento = table.Column<int>(type: "INTEGER", nullable: false)
+                    IdTipoMovimento = table.Column<int>(type: "INTEGER", nullable: false)
                         .Annotation("Sqlite:Autoincrement", true),
                     Segno = table.Column<int>(type: "INTEGER", nullable: false),
                     DataDiCreazione = table.Column<DateTime>(type: "TEXT", nullable: false),
@@ -95,7 +95,7 @@ namespace dc_repository.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_TipoMovimenti", x => x.IdMovimento);
+                    table.PrimaryKey("PK_TipoMovimenti", x => x.IdTipoMovimento);
                 });
 
             migrationBuilder.CreateTable(
@@ -107,6 +107,7 @@ namespace dc_repository.Migrations
                     CodiceProdotto = table.Column<string>(type: "TEXT", maxLength: 20, nullable: false),
                     Descrizione = table.Column<string>(type: "TEXT", maxLength: 500, nullable: true),
                     PrezzoAcquisto = table.Column<decimal>(type: "TEXT", nullable: false),
+                    Giancenza = table.Column<decimal>(type: "TEXT", nullable: false),
                     PrezzoVendita = table.Column<decimal>(type: "TEXT", nullable: false),
                     UrlImmagine = table.Column<string>(type: "TEXT", maxLength: 200, nullable: true),
                     CodiceABarre = table.Column<string>(type: "TEXT", maxLength: 13, nullable: true),
@@ -152,6 +153,7 @@ namespace dc_repository.Migrations
                     TipoMovimentoId = table.Column<int>(type: "INTEGER", nullable: false),
                     TotaleIva = table.Column<decimal>(type: "TEXT", nullable: false),
                     Totale = table.Column<decimal>(type: "TEXT", nullable: false),
+                    TotaleMovimento = table.Column<decimal>(type: "TEXT", nullable: false),
                     TipoPagamento = table.Column<int>(type: "INTEGER", nullable: false),
                     DataDiCreazione = table.Column<DateTime>(type: "TEXT", nullable: false),
                     DataAggiornamento = table.Column<DateTime>(type: "TEXT", nullable: false),
@@ -171,7 +173,7 @@ namespace dc_repository.Migrations
                         name: "FK_Movimenti_TipoMovimenti_TipoMovimentoId",
                         column: x => x.TipoMovimentoId,
                         principalTable: "TipoMovimenti",
-                        principalColumn: "IdMovimento",
+                        principalColumn: "IdTipoMovimento",
                         onDelete: ReferentialAction.Cascade);
                 });
 
@@ -184,6 +186,10 @@ namespace dc_repository.Migrations
                     MovimentoId = table.Column<int>(type: "INTEGER", nullable: false),
                     ArticoloId = table.Column<int>(type: "INTEGER", nullable: false),
                     Prezzo = table.Column<decimal>(type: "TEXT", nullable: false),
+                    Quantita = table.Column<decimal>(type: "TEXT", nullable: false),
+                    Sconto = table.Column<decimal>(type: "TEXT", nullable: false),
+                    Iva = table.Column<decimal>(type: "TEXT", nullable: false),
+                    TotaleRiga = table.Column<decimal>(type: "TEXT", nullable: false),
                     DataDiCreazione = table.Column<DateTime>(type: "TEXT", nullable: false),
                     DataAggiornamento = table.Column<DateTime>(type: "TEXT", nullable: false),
                     Operatore = table.Column<string>(type: "TEXT", nullable: true),

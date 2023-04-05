@@ -7,34 +7,34 @@ namespace dc_api.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class CategoriaController : ControllerBase
+    public class MarchioController : ControllerBase
     {
-        private readonly ICategoriaService services;
+        private readonly IMarchioService services;
 
-        public CategoriaController(ICategoriaService services)
+        public MarchioController(IMarchioService services)
         {
             this.services = services;
         }
 
         [HttpPost]
-        [Route("CreaCategoria")]
-        public async Task<IActionResult> CreateAsync([FromBody] Categoria model)
+        [Route("CreaMarchio")]
+        public async Task<IActionResult> CreateAsync([FromBody] Marchio model)
         {
-            var categoria = await services.CreateAsync(model);
-            return Ok(categoria);
+            var marchio = await services.CreateAsync(model);
+            return Ok(marchio);
         }
 
         [HttpDelete]
-        [Route("DeleteCategoria")]
-        public async Task<IActionResult> DeleteAsync(int idCategoria)
+        [Route("DeleteMarchio")]
+        public async Task<IActionResult> DeleteAsync(int idMarchio)
         {
-            await services.DeleteAsync(idCategoria);
+            await services.DeleteAsync(idMarchio);
             return Ok();
         }
 
         [HttpPut]
-        [Route("AggiornaCategoria")]
-        public async Task<IActionResult> UpdateAsync([FromBody] Categoria model)
+        [Route("AggiornaMarchio")]
+        public async Task<IActionResult> UpdateAsync([FromBody] Marchio model)
         {
             return Ok(await services.UpdateAsync(model));
         }
@@ -52,6 +52,5 @@ namespace dc_api.Controllers
         {
             return Ok(await services.Pagination(numPag, filtro, recPag));
         }
-
     }
 }

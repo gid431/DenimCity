@@ -7,34 +7,34 @@ namespace dc_api.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class CategoriaController : ControllerBase
+    public class TipoMovimentoController : ControllerBase
     {
-        private readonly ICategoriaService services;
+        private readonly ITipoMovimentoService services;
 
-        public CategoriaController(ICategoriaService services)
+        public TipoMovimentoController(ITipoMovimentoService services)
         {
             this.services = services;
         }
 
         [HttpPost]
-        [Route("CreaCategoria")]
-        public async Task<IActionResult> CreateAsync([FromBody] Categoria model)
+        [Route("CreaTipoMovimento")]
+        public async Task<IActionResult> CreateAsync([FromBody] TipoMovimento model)
         {
-            var categoria = await services.CreateAsync(model);
-            return Ok(categoria);
+            var tipoMovimento = await services.CreateAsync(model);
+            return Ok(tipoMovimento);
         }
 
         [HttpDelete]
-        [Route("DeleteCategoria")]
-        public async Task<IActionResult> DeleteAsync(int idCategoria)
+        [Route("DeleteTipoMovimento")]
+        public async Task<IActionResult> DeleteAsync(int idTipoMovimento)
         {
-            await services.DeleteAsync(idCategoria);
+            await services.DeleteAsync(idTipoMovimento);
             return Ok();
         }
 
         [HttpPut]
-        [Route("AggiornaCategoria")]
-        public async Task<IActionResult> UpdateAsync([FromBody] Categoria model)
+        [Route("AggiornaTipoMovimento")]
+        public async Task<IActionResult> UpdateAsync([FromBody] TipoMovimento model)
         {
             return Ok(await services.UpdateAsync(model));
         }
@@ -52,6 +52,5 @@ namespace dc_api.Controllers
         {
             return Ok(await services.Pagination(numPag, filtro, recPag));
         }
-
     }
 }

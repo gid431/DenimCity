@@ -7,34 +7,34 @@ namespace dc_api.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class CategoriaController : ControllerBase
+    public class MovimentoRigaController : ControllerBase
     {
-        private readonly ICategoriaService services;
+        private readonly IMovimentoRigaService services;
 
-        public CategoriaController(ICategoriaService services)
+        public MovimentoRigaController(IMovimentoRigaService services)
         {
             this.services = services;
         }
 
         [HttpPost]
-        [Route("CreaCategoria")]
-        public async Task<IActionResult> CreateAsync([FromBody] Categoria model)
+        [Route("CreaMovimentoRiga")]
+        public async Task<IActionResult> CreateAsync([FromBody] MovimentoRiga model)
         {
-            var categoria = await services.CreateAsync(model);
-            return Ok(categoria);
+            var movimentoRiga = await services.CreateAsync(model);
+            return Ok(movimentoRiga);
         }
 
         [HttpDelete]
-        [Route("DeleteCategoria")]
-        public async Task<IActionResult> DeleteAsync(int idCategoria)
+        [Route("DeleteMovimentoRiga")]
+        public async Task<IActionResult> DeleteAsync(int idMovimentoRiga)
         {
-            await services.DeleteAsync(idCategoria);
+            await services.DeleteAsync(idMovimentoRiga);
             return Ok();
         }
 
         [HttpPut]
-        [Route("AggiornaCategoria")]
-        public async Task<IActionResult> UpdateAsync([FromBody] Categoria model)
+        [Route("AggiornaMovimentoRiga")]
+        public async Task<IActionResult> UpdateAsync([FromBody] MovimentoRiga model)
         {
             return Ok(await services.UpdateAsync(model));
         }
@@ -52,6 +52,5 @@ namespace dc_api.Controllers
         {
             return Ok(await services.Pagination(numPag, filtro, recPag));
         }
-
     }
 }
